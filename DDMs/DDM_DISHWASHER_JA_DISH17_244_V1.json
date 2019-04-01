@@ -1316,6 +1316,9 @@
   },
   "Personality": {
     "Key": "DDM_DISHWASHER_JA_DISH17_244_V1",
+    "CavityOrder": [
+      "DishCavity"
+    ],
     "Capability": {
       "DishCavity": {
         "CapabilityData": {
@@ -1718,19 +1721,121 @@
                 ]
               }
             }
+          },
+          "Default": "DishCavity_WashModeCycleNormal"
+        }
+      }
+    },
+    "AttributesMapping": {
+      "DishCavity": {
+        "CycleName": [
+          "Cavity_CycleSetCycleId",
+          "Cavity_CycleSetDownloadAndGo"
+        ],
+
+        "TimeRemaining": "Cavity_TimeStatusEstTimeRemaining",
+        "MachineState" : "Cavity_OperationStatusMachineState",
+        "DoorOpenStatus" : "Cavity_OperationStatusDoorOpen",
+        "FilterStatus" : "Cavity_OperationStatusCleanFilter",
+        "CycleState" : "Cavity_CycleStatusCycleState",
+        "OdometerStatus" : "Cavity_CycleStatusOdometer",
+        "HeavyDutyCycleOdometerStatus" : "Cavity_CycleStatusHeavyDutyCycleOdometer",
+        "CycleCleanStatus" : "Cavity_CycleStatusCycleClean",
+        "CycleSanitizedStatus" : "Cavity_CycleStatusCycleSanitized",
+        "DelayTimeSetTime" : "Cavity_TimeSetDelayTime",
+        "UpperRackOnly" : "Cavity_CycleSetOptionUpperRackOnly",
+        "LowerRackOnly" : "Cavity_CycleSetOptionLowerRackOnly",
+        "SmartHeatedDry" : "Cavity_CycleSetOptionSmartHeatedDry",
+        "SaniRinse" : "Cavity_CycleSetOptionSaniRinse",
+        "SteamEnabled" : "Cavity_CycleSetOptionSteam",
+        "HighTemp" : "Cavity_CycleSetOptionHighTemp"
+      },
+      "Common": {
+        "RemoteEnabledStatus": "XCat_RemoteSetRemoteControlEnable",
+        "QuietModeEnabled" : "Sys_OperationSetQuietModeEnabled",
+        "SabbathModeEnabled" : "Sys_OperationSetSabbathModeEnabled"
+      }
+    },
+    "Features": {
+      "Common": {
+        "QuietMode": {
+          "Visible": true,
+          "AvailableIn": [
+            "US",
+            "CA"
+          ],
+          "StateAttributes": {
+            "State": "Sys_OperationSetQuietModeEnabled"
+          }
+        },
+        "SabbathMode": {
+          "Visible": true,
+          "AvailableIn": [
+            "US",
+            "CA"
+          ],
+          "StateAttributes": {
+            "State": "Sys_OperationSetSabbathModeEnabled"
+          }
+        },
+        "Notifications": {
+          "Visible": true,
+          "AvailableIn": [
+            "US",
+            "CA"
+          ]
+        }
+      },
+      "DishCavity": {
+        "SetDishWasher": {
+          "Visible": true,
+          "AvailableIn": [
+            "US",
+            "CA"
+          ],
+          "StateAttributes": {
+            "State": "Cavity_OperationStatusMachineState"
+          },
+          "StatusAttributes": [
+            "Cavity_CycleSetCycleId",
+            "Cavity_CycleSetDownloadAndGo",
+            "Cavity_CycleSetOptionBottleWashZone",
+            "Cavity_CycleSetOptionDetergent",
+            "Cavity_CycleSetOptionEcoDry",
+            "Cavity_CycleSetOptionFanDry",
+            "Cavity_CycleSetOptionHalfLoad",
+            "Cavity_CycleSetOptionHighTemp",
+            "Cavity_CycleSetOptionLowerRackOnly",
+            "Cavity_CycleSetOptionPowerDry",
+            "Cavity_CycleSetOptionSaniRinse",
+            "Cavity_CycleSetOptionSilverwareZone",
+            "Cavity_CycleSetOptionSmartHeatedDry",
+            "Cavity_CycleSetOptionSteam",
+            "Cavity_CycleSetOptionTallItemZone",
+            "Cavity_CycleSetOptionTurboZone",
+            "Cavity_CycleSetOptionUpperRackOnly",
+            "Cavity_CycleSetOptionWaterTank",
+            "Cavity_OperationStatusMachineState",
+            "Cavity_TimeStatusEstTimeRemaining"
+          ],
+          "SendCommandAttributes": [
+            "Cavity_CycleSetDownloadAndGo",
+            "Cavity_CycleSetCycleId",
+            "Cavity_CycleSetOptionSaniRinse",
+            "Cavity_CycleSetOptionSmartHeatedDry",
+            "Cavity_CycleSetOptionLowerRackOnly",
+            "Cavity_CycleSetOptionSteam",
+            "Cavity_CycleSetOptionHighTemp",
+            "Cavity_CycleSetOptionUpperRackOnly"
+          ],
+          "SetOperationsMapping": {
+            "Operation" : "Cavity_OperationSetStartCommand"
           }
         }
       }
     },
-    "Rulesets": [
-      {
-        "FaultCodeHistory": {
-          "isLegacy": "false",
-          "groupBy": "Sys_AlertStatusCustomerFaultCode",
-          "attributes": "Sys_AlertStatusCustomerFaultCode"
-        }
-      }
-    ]
+    "Rulesets": {
+    }
   },
   "Alerts": {
     "Key": "DDM_DISHWASHER_JA_DISH17_244_V1",
@@ -1738,11 +1843,11 @@
       {
         "ApplianceAlerts": [
           {
-            "alertId": 526,
+            "alertId": 161,
             "name": "CycleComplete",
             "attribute": "Cavity_OperationStatusMachineState",
             "type": "push",
-            "category": "Dishwasher",
+            "category": "",
             "autodelete": false,
             "autodisarm": false,
             "autodisable": false,
@@ -1750,11 +1855,11 @@
             "enable": false
           },
           {
-            "alertId": 527,
+            "alertId": 160,
             "name": "FilterStatus",
-            "attribute": "Cavity_IsTimeToCleanFilter",
+            "attribute": "Cavity_CycleStatusOdometer,Cavity_IsTimeToCleanFilter,Cavity_CycleStatusHeavyDutyCycle",
             "type": "push",
-            "category": "Dishwasher",
+            "category": "",
             "autodelete": false,
             "autodisarm": true,
             "autodisable": false,
@@ -1762,11 +1867,11 @@
             "enable": false
           },
           {
-            "alertId": 528,
+            "alertId": 172,
             "name": "SaniRinse",
             "attribute": "Cavity_CycleStatusCycleSanitized",
             "type": "push",
-            "category": "Dishwasher",
+            "category": "",
             "autodelete": false,
             "autodisarm": false,
             "autodisable": false,
@@ -1774,11 +1879,11 @@
             "enable": false
           },
           {
-            "alertId": 529,
+            "alertId": 638,
             "name": "RemoteStatus",
             "attribute": "XCat_RemoteSetRemoteControlEnable",
             "type": "push",
-            "category": "Dishwasher",
+            "category": "",
             "autodelete": false,
             "autodisarm": false,
             "autodisable": false,
@@ -1786,11 +1891,11 @@
             "enable": false
           },
           {
-            "alertId": 530,
+            "alertId": 159,
             "name": "AffreshNotification",
             "attribute": "Cavity_OperationSetAffreshCycleNeeded",
             "type": "push",
-            "category": "Dishwasher",
+            "category": "",
             "autodelete": false,
             "autodisarm": true,
             "autodisable": false,
